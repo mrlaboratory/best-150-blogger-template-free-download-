@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+
+    
+    <style>
+        :root{
+            --bgcolor: red;
+        }
+        .mrlaboratorytable{border:1px solid var(--bgcolor);width:100%;height:auto;border-collapse:separate}
+        .mrlaboratorytable caption{text-align:center;border-top:1px solid var(--bgcolor);font-size:20px;font-weight:700}.mrlaboratorytable td,.mrlaboratorytable tr{border:1px solid var(--bgcolor);padding:7px;border-collapse:separate;font-family:'Font Awesome 5 Pro'}
+        .mrlaboratorytable th{font-size:20px;font-family:Oswald;text-align:center}
+    </style>
+<h1>Blogger Recent Article Data</h1>
+<input type="text">
+<button onclick="datarun()">Run</button>
+<div ></div>
+<table class="mrlaboratorytable">
+<thead>
+    <tr><th>No: </th>
+        <th>Template Name </th>
+        <th>
+Template Demo
+        </th>
+        <th>
+Template Download Link
+        </th>
+        <th>Alternate Download Link</th>
+    </tr>
+</thead>
+<tbody class="tabledata">
+
+
+</tbody>
+</table>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script>
+
+
+function datarun(){
+alet("worked");
+
+}
+
+var item =""; 
+var ssl = 201;
+      function mycallback(json) {
+        for (var i = 0; i < json.feed.entry.length; i++) {
+            ssl--;
+          for (var j = 0; j < json.feed.entry[i].link.length; j++) {
+            if (json.feed.entry[i].link[j].rel == 'alternate') {
+              var postUrl = json.feed.entry[i].link[j].href;
+              break;
+            }
+          }
+          var posttitle = json.feed.entry[i].title.$t;
+      // var item = '<a href=' + postUrl + '>' + postTitle + '</a><b>'+postTitle+'</b></br>';
+        //  var item ="<td>"+(i+1)+"</td><td>"+postTitle+"</td><td><a href='"+c+"' target='_blank'>Download</a></td>";
+        item='<a href="'+postUrl+'">'+posttitle+'</a>'
+        var demol ='<a href="https://mrlaboratory'+ssl+'.blogspot.com/" target="_blank">Demo</a>';
+        var download = '<a href="'+postUrl+'">Download</a>';
+        var alterdown = '<a target="_blank" href="https://www.google.com/search?q=site:mrlaboratory.info '+posttitle+'">Download</a>'
+var item2 ='<tr><td>'+i+'</td><td><b>'+posttitle+'</b></td><td>'+demol+'</td><td>'+download+'</td><td>'+alterdown+'</td></tr>'
+        $( ".tabledata" ).append(item2);
+
+        }
+      }
+
+
+
+
+    </script>
+<script src="https://template.mrlaboratory.info/feeds/posts/summary?orderby=published&max-results=500&alt=json-in-script&callback=mycallback"></script>
+
+
+</body>
+</html>
